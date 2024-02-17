@@ -26,16 +26,23 @@ mod rro {
 make_device! {
     device_ports(mmio::TIMER_0, mmio::TIMER_1, mmio::TIMER_2);
 
-    /// Timer Count. See Page 315, Table 19-9.
+    /// Timer Count Register. See Page 315, Table 19-9.
+    /// Register holds current value of timer
+    /// Note: Rate of increment depends on set timer mode
     #[bit(0..=31, RW, rro::TMR_CNT)]
     timer_count,
 
-    /// The Timer Compare Register
-    /// Timer Compare Value. See Page 315, Table 19-10.
+    /// Timer Compare Register. See Page 315, Table 19-10.
+    /// Timer Compare Value.
+    /// Register to compare to. See below for mode diffs.
+    /// One-Shot: Max value to stop the timer at. See Page 298 for further details.
+    /// Continuous: Value to reset time_count at. See Page 300 for further details.
+    /// Counter: Value to reset time_count at. See Page 302 for further details.
+    /// PWM:
     #[bit(0..=31, RW, rro::TMR_CMP)]
     timer_compare_value,
 
-    /// PWM. See Page 315, Table 19-11.
+    /// Timer PWM Register. See Page 315, Table 19-11.
     #[bit(0..=31, RW, rro::TMR_PWM)]
     pwm,
 
