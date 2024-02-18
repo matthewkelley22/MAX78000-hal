@@ -51,6 +51,7 @@ make_device! {
     #[bit(0..=31, RW, rro::TMR_PWM)]
     pwm,
 
+    /// Timer Interrupt Register. See Page 315-316, Table 19-12.
     /// TimerB Write Protect in Dual Timer Mode. See Page 315-316, Table 19-12.
     #[bit(24, RW, rro::TMR_INTFL)]
     timerb_write_protect_in_dual_timer_mode,
@@ -75,6 +76,7 @@ make_device! {
     #[bit(0, RW1C, rro::TMR_INTFL)]
     timera_interrupt_event,
 
+    /// Timer Control 0 Register. See Page 316-319, Table 19-13.
     /// TimerB Enable. See Page 316-319, Table 19-13.
     #[bit(31, RW, rro::TMR_CTRL0)]
     timerb_enable,
@@ -135,6 +137,7 @@ make_device! {
     #[bit(0..=3, RW, rro::TMR_CTRL0)]
     timera_mode_select,
 
+    /// Timer Non-Overlapping Compare Register. See Page 319, Table 19-14.
     /// TimerA Non-Overlapping High Compare 1. See Page 319, Table 19-14.
     #[bit(24..=31, RW, rro::TMR_NOLCMP)]
     timera_non_overlapping_high_compare_1,
@@ -151,6 +154,7 @@ make_device! {
     #[bit(0..=7, RW, rro::TMR_NOLCMP)]
     timera_non_overlapping_low_compare_0,
 
+    /// Timer Control 1 Register. See Page 319-321, Table 19-15.
     /// 32-bit Cascade Timer Enable. See Page 319-321, Table 19-15.
     #[bit(31, RW, rro::TMR_CTRL1)]
     bit32_cascade_timer_enable,
@@ -235,6 +239,7 @@ make_device! {
     #[bit(0..=1, RW, rro::TMR_CTRL1)]
     timera_clock_source,
 
+    /// Timer Wake-Up Status Register. See Page 321-322, Table 19-16.
     /// TimerB Wake-Up Event. See Page 321-322, Table 19-16.
     #[bit(16, RW1C, rro::TMR_WKFL)]
     timerb_wakeup_event,
