@@ -62,6 +62,9 @@ make_device! {
     timerb_write_protect_in_dual_timer_mode,
 
     /// TimerB Write Done. See Page 315-316, Table 19-12.
+    /// Indicates if a write to Count: bits 16..=31 (PWM 16..=31 in dual timer mode) is occuring.
+    /// - 0: Currently writing (set by hardware when write occurs)
+    /// - 1: Write complete/Not writing
     #[bit(25, RO, rro::TMR_INTFL)]
     timerb_write_done,
 
