@@ -69,6 +69,9 @@ make_device! {
     timerb_write_done,
 
     /// TimerB Interrupt Event. See Page 315-316, Table 19-12.
+    /// Indicates if a TimerB interrupt occurred. See Section 19.7 for mode-specific details.
+    /// - 0: No event occurred
+    /// - 1: Interrupt occurred (Write 1 to clear)
     #[bit(16, RW1C, rro::TMR_INTFL)]
     timerb_interrupt_event,
 
