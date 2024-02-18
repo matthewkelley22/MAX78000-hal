@@ -38,7 +38,7 @@ make_device! {
     /// One-Shot Mode: Max value to stop count at. See Page 298 for further details.
     /// Continuous Mode: Value to reset count at. See Page 300 for further details.
     /// Counter Mode: Value to reset count at. See Page 302 for further details.
-    /// PWM Mode: Value to reset count and switch PWM output signal at. See Page 304 for further details.
+    /// PWM Mode: Value to reset count and switch PWM output signal to its original state at. See Page 304 for further details.
     /// Capture Mode: Increment of time to wait for a transition in the input signal. See page 305 for further details.
     /// Compare Mode: Value to send interrupt flag and switch timer output at. See Page 308 for further details. (Note: Documentation for this mode is contradictory at time of writing - diagram for this mode on Page 309 may be more useful.)
     /// Gated Mode: Value to reset count at. See page 310 for further details.
@@ -47,12 +47,17 @@ make_device! {
     timer_compare_value,
 
     /// Timer PWM Register. See Page 315, Table 19-11.
-    ///
+    /// PWM Match Mode: Stores the value to have 1st PWM output transition at.
+    /// Capture Value Mode (Capture, Compare, and Capture/Compare Timer Modes): Stores value of count from when a mode-associated event occurs.
     #[bit(0..=31, RW, rro::TMR_PWM)]
     pwm,
 
     /// Timer Interrupt Register. See Page 315-316, Table 19-12.
     /// TimerB Write Protect in Dual Timer Mode. See Page 315-316, Table 19-12.
+    /// Protects bits 16..=31 of Count and PWM registers from being written to.
+    /// - 0: Enabled (Default)
+    /// - 1: Disabled
+    /// Note: always reads as 0 if the timer is currently a 32-bit cascade timer.
     #[bit(24, RW, rro::TMR_INTFL)]
     timerb_write_protect_in_dual_timer_mode,
 
