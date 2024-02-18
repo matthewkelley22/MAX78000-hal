@@ -35,14 +35,19 @@ make_device! {
     /// Timer Compare Register. See Page 315, Table 19-10.
     /// Timer Compare Value.
     /// Register to compare to. See below for mode diffs.
-    /// One-Shot: Max value to stop the timer at. See Page 298 for further details.
-    /// Continuous: Value to reset time_count at. See Page 300 for further details.
-    /// Counter: Value to reset time_count at. See Page 302 for further details.
-    /// PWM:
+    /// One-Shot Mode: Max value to stop count at. See Page 298 for further details.
+    /// Continuous Mode: Value to reset count at. See Page 300 for further details.
+    /// Counter Mode: Value to reset count at. See Page 302 for further details.
+    /// PWM Mode: Value to reset count and switch PWM output signal at. See Page 304 for further details.
+    /// Capture Mode: Increment of time to wait for a transition in the input signal. See page 305 for further details.
+    /// Compare Mode: Value to send interrupt flag and switch timer output at. See Page 308 for further details. (Note: Documentation for this mode is contradictory at time of writing - diagram for this mode on Page 309 may be more useful.)
+    /// Gated Mode: Value to reset count at. See page 310 for further details.
+    /// Capture/Compare Mode: Value to reset count at if the external timer does not transition states. See page 312 for further details.
     #[bit(0..=31, RW, rro::TMR_CMP)]
     timer_compare_value,
 
     /// Timer PWM Register. See Page 315, Table 19-11.
+    ///
     #[bit(0..=31, RW, rro::TMR_PWM)]
     pwm,
 
