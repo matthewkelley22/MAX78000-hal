@@ -3,6 +3,8 @@ pub mod aes;
 pub mod bits;
 pub mod debug;
 pub mod error;
+pub mod gcr;
+pub mod gpio;
 pub mod i2c;
 pub mod memory_map;
 pub mod timer;

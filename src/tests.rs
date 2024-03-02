@@ -7,6 +7,8 @@ const THREE_4_BYTES: usize = 2;
 const FOUR_4_BYTES: usize = 3;
 
 make_device! {
+    // No need for device ports when testing, since
+    // the macro will disable its checking.
     device_ports();
 
     #[bit(0, RW, FIRST_4_BYTES)]
@@ -144,6 +146,14 @@ macro_rules! single_bit_test {
             unsafe { reg.$set(true) };
             assert_eq!(reg.first_4_bytes.read(), 0b1 << $bit);
             assert_eq!(reg.$get(), true);
+
+            unsafe { reg.$set(false) };
+            assert_eq!(reg.first_4_bytes.read(), 0b0);
+            assert_eq!(reg.$get(), false);
+
+            unsafe { reg.$set(true) };
+            assert_eq!(reg.first_4_bytes.read(), 0b1 << $bit);
+            assert_eq!(reg.$get(), true);
         }
     };
 }
@@ -166,6 +176,22 @@ macro_rules! range_bit_test {
     };
 }
 
+#[test]
+fn test_entire_u32max() {
+    #[allow(unused)]
+    let mut fake_device_storage = [0u32; 4];
+    #[allow(unused)]
+    let mut reg = Registers::new(fake_device_storage.as_mut() as *mut [u32] as *mut u32 as usize);
+    unsafe { reg.set_range_0(u32::MAX) };
+    assert_eq!(reg.second_4_bytes.read(), u32::MAX, "acct value");
+    assert_eq!(reg.get_range_0(), u32::MAX, "read value");
+    unsafe { reg.set_range_0(0) };
+    assert_eq!(reg.second_4_bytes.read(), 0, "acct value");
+    assert_eq!(reg.get_range_0(), 0, "read value");
+}
+
+// Test the full range, but since its u32 it can take some time
+// so we make it multithreaded here.
 range_bit_test!(0, range_bit_test_0);
 range_bit_test!(1, range_bit_test_1);
 range_bit_test!(2, range_bit_test_2);

@@ -168,8 +168,8 @@ TimerB
 Prescaler
 𝝓𝑨
 𝝓𝑨′
-Deassert 
-deassert 
+Deassert
+deassert
 RTS
 Deasserted
 deasserted
@@ -186,3 +186,6 @@ LPUART
 0s
 FDM
 RTS's
+decrypt
+TRNG's
+AES's
